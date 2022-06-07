@@ -97,8 +97,6 @@ app.get("/v1/:character",(req, resp)=>{
                         ...characterObject,
                     })
                 }
-                
-                
             })
             resp.status(200).json(characters);
         })
@@ -108,7 +106,7 @@ app.get("/v1/:character",(req, resp)=>{
 })
 
 //Run port
-app.listen(8000, ()=>{
+app.listen(process.env.PORT || 8000, ()=>{
     console.log("Server is running...");
 })
 
