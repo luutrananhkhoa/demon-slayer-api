@@ -34,10 +34,12 @@ app.get('/v1', (req,resp)=>{
                 const name=$(this).find("a").attr("title");
                 const url =$(this).find("a").attr("href");
                 const img =$(this).find("a > img").attr("data-src");
+                const imgTemp = img.split("/revision/");
+                const image=imgTemp[0];
                 thumbnails.push({
                     name:name,
                     url:"https://demon-slayer-api-4nhb.onrender.com/v1"+url.split("/wiki")[1],
-                    img:img
+                    img:image
                 })
             })
             if(limit && limit>0 && limit<thumbnails.length){
@@ -68,12 +70,16 @@ app.get("/v1/:character",(req, resp)=>{
 
             $(".wikia-gallery-item", html).each(function(){
                 const gallery = $(this).find("a >img").attr("data-src");
-                galleries.push(gallery);
+                const galleryTemp = gallery.split("/revision/");
+                const glr=galleryTemp[0];
+                galleries.push(glr);
             })
            
             $("aside",html).each(function(){
                   //Get the image of charecter
                 const img= $(this).find("img").attr("src");
+                const imgTemp = img.split("/revision/");
+                const image=imgTemp[0];
 
                  //Get the title of charecter title
                 $(this).find("section > div > h3").each(function(){
@@ -93,7 +99,7 @@ app.get("/v1/:character",(req, resp)=>{
                     characters.push({
                         name: req.params.character.replace("_"," "),
                         gallery: galleries,
-                        img:img,
+                        img:image,
                         ...characterObject,
                     })
                 }
